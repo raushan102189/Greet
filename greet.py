@@ -1,4 +1,3 @@
-# greet me good morning wtih random message with input name
 import time
 from gender_checker import gender_checker
 name = input('What is your name? ')
