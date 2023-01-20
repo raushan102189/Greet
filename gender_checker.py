@@ -3,9 +3,12 @@ import pandas as pd
 # read the csv file and store it in a dataframe
 data = pd.read_csv("names.csv")
 dataframe = pd.DataFrame(data)
+print(dataframe,"datafram")
 
 # define a function to check the gender of a name
 def gender_checker(name):
+    data = pd.read_csv("names.csv")
+    dataframe = pd.DataFrame(data)
     gender = "unknown"
     # check the dataframe for the name
     checks = dataframe[dataframe["name"]== name]
@@ -44,30 +47,33 @@ def update_file(gender, name):
         print("thank you")
     elif user1 == "n":
         print(sorry)
-        data = pd.read_csv("names.csv")
-        dataframe = pd.DataFrame(data)
-        update = pd.dataframe({"name":[name],"gender":["M"]})
-        pd.concat([dataframe,update]).to_csv("names.csv",index=False)
+        # data = pd.read_csv("names.csv")
+        # dataframe = pd.DataFrame(data)
+        update = pd.DataFrame({"name":[name],"gender":["F"]})
+        pd.concat([update,dataframe]).to_csv("names.csv",index=False)
         print("file has been updated")
     elif user2 == "y":
         print("thank you")
     elif user2 == "n":
         print(sorry)
-        data = pd.read_csv("names.csv")
-        dataframe = pd.DataFrame(data)
-        update = pd.dataframe({"name":[name],"gender":["F"]})
-        pd.concat([dataframe,update]).to_csv("names.csv",index=False)
+        # data = pd.read_csv("names.csv")
+        # dataframe = pd.DataFrame(data)
+        update = pd.DataFrame({"name":[name],"gender":["M"]})
+        pd.concat([update,dataframe]).to_csv("names.csv",index=False)
         print("file has been updated")
 
 runagain ="y"
 while runagain == "y":
     name =  input("Enter your name: ").capitalize()
     try:
-        checkint = int(name)
-        print("please enter a valid name (⌐■_■)")
+        if name.isalpha() == True:
+            gender = gender_checker(name)
+            update = update_file(gender, name)
+        else:
+            raise ValueError
+        
     except:
-        gender = gender_checker(name)
-        update = update_file(gender, name)
+        print("please enter a valid name (⌐■_■)")
     finally:
         print("****************************************************")
         runagain = input("do you want to run again y/n: ")
